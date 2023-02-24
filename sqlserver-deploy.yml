@@ -13,13 +13,18 @@ spec:
             name: mssql-pod
     template:
         metadata:
-            name: microservice-seguridad-pod
-            labels: 
-                app: microservice-seguridad
                 name: mssql-pod
+                labels: 
+                    app: microservice-seguridad
+                    type: database
         spec:
             containers:
-            - name: microservice-seguridad-app
-              image: alejandropons/serviciosapiseguridad:latest
+            - name: mssql
+              image: mcr.microsoft.com/mssql/server
               ports:
-                - containerPort: 80
+                - containerPort: 1433
+              env:
+              - name: ACCEPT_EULA
+                value: "Y"
+              - name: SA_PASSWORD
+                value: "12345"
